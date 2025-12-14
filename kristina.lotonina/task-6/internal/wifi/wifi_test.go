@@ -1,4 +1,3 @@
-//go:generate mockery --dir ./internal/wifi --name WiFiHandle --testonly --quiet --outpkg wifi_test --output .
 package wifi_test
 
 import (
@@ -8,7 +7,6 @@ import (
 
 	"github.com/kef1rch1k/task-6/internal/wifi"
 	mwifi "github.com/mdlayher/wifi"
-	"github.com/stretchr/testify/require"
 )
 
 func TestGetAddresses(t *testing.T) {
