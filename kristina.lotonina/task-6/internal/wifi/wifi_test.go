@@ -7,8 +7,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/kef1rch1k/task-6/internal/wifi"
 	mwifi "github.com/mdlayher/wifi"
+
+	"github.com/kef1rch1k/task-6/internal/wifi"
 )
 
 var errIntf = errors.New("interfaces error")
@@ -43,7 +44,7 @@ func TestGetAddresses_Error(t *testing.T) {
 	service := wifi.New(mockWiFi)
 
 	_, err := service.GetAddresses()
-	require.Error(t, err)
+	require.ErrorContains(t, err, "interfaces error")
 }
 
 func TestGetNames(t *testing.T) {
@@ -74,5 +75,5 @@ func TestGetNames_Error(t *testing.T) {
 	service := wifi.New(mockWiFi)
 
 	_, err := service.GetNames()
-	require.Error(t, err)
+	require.ErrorContains(t, err, "interfaces error")
 }

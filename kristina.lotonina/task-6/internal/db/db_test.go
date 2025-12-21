@@ -50,7 +50,7 @@ func TestGetNames_QueryError(t *testing.T) {
 		WillReturnError(errQuery)
 
 	_, err = service.GetNames()
-	require.Error(t, err)
+	require.ErrorContains(t, err, "db query")
 }
 
 func TestGetUniqueNames(t *testing.T) {
@@ -88,7 +88,7 @@ func TestGetUniqueNames_QueryError(t *testing.T) {
 		WillReturnError(errQuery)
 
 	_, err = service.GetUniqueNames()
-	require.Error(t, err)
+	require.ErrorContains(t, err, "db query")
 }
 
 func TestGetNames_ScanError(t *testing.T) {
@@ -107,7 +107,7 @@ func TestGetNames_ScanError(t *testing.T) {
 		WillReturnRows(rows)
 
 	_, err = service.GetNames()
-	require.Error(t, err)
+	require.ErrorContains(t, err, "rows scanning")
 }
 
 func TestGetNames_RowsError(t *testing.T) {
@@ -127,7 +127,7 @@ func TestGetNames_RowsError(t *testing.T) {
 		WillReturnRows(rows)
 
 	_, err = service.GetNames()
-	require.Error(t, err)
+	require.ErrorContains(t, err, "rows error")
 }
 
 func TestGetUniqueNames_ScanError(t *testing.T) {
@@ -146,7 +146,7 @@ func TestGetUniqueNames_ScanError(t *testing.T) {
 		WillReturnRows(rows)
 
 	_, err = service.GetUniqueNames()
-	require.Error(t, err)
+	require.ErrorContains(t, err, "rows scanning")
 }
 
 func TestGetUniqueNames_RowsError(t *testing.T) {
@@ -166,5 +166,5 @@ func TestGetUniqueNames_RowsError(t *testing.T) {
 		WillReturnRows(rows)
 
 	_, err = service.GetUniqueNames()
-	require.Error(t, err)
+	require.ErrorContains(t, err, "rows error")
 }
