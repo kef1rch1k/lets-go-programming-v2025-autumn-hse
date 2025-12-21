@@ -7,8 +7,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	mwifi"github.com/mdlayher/wifi"
 	mockwifi "github.com/kef1rch1k/task-6/internal/wifi/mocks"
+	mwifi "github.com/mdlayher/wifi"
 
 	"github.com/kef1rch1k/task-6/internal/wifi"
 )
