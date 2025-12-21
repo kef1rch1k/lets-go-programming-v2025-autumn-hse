@@ -5,6 +5,8 @@ import (
 	"net"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/kef1rch1k/task-6/internal/wifi"
 	mwifi "github.com/mdlayher/wifi"
 )
@@ -26,13 +28,8 @@ func TestGetAddresses(t *testing.T) {
 	service := wifi.New(mockWiFi)
 
 	addrs, err := service.GetAddresses()
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
-	}
-
-	if len(addrs) != 1 {
-		t.Fatalf("expected 1 address, got %d", len(addrs))
-	}
+	require.NoError(t, err)
+	require.Len(t, addrs, 1)
 }
 
 func TestGetAddresses_Error(t *testing.T) {
@@ -46,9 +43,7 @@ func TestGetAddresses_Error(t *testing.T) {
 	service := wifi.New(mockWiFi)
 
 	_, err := service.GetAddresses()
-	if err == nil {
-		t.Fatal("expected error, got nil")
-	}
+	require.Error(t, err)
 }
 
 func TestGetNames(t *testing.T) {
@@ -64,13 +59,8 @@ func TestGetNames(t *testing.T) {
 	service := wifi.New(mockWiFi)
 
 	names, err := service.GetNames()
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
-	}
-
-	if len(names) != 2 {
-		t.Fatalf("expected 2 names, got %d", len(names))
-	}
+	require.NoError(t, err)
+	require.Len(t, names, 2)
 }
 
 func TestGetNames_Error(t *testing.T) {
@@ -84,7 +74,5 @@ func TestGetNames_Error(t *testing.T) {
 	service := wifi.New(mockWiFi)
 
 	_, err := service.GetNames()
-	if err == nil {
-		t.Fatal("expected error, got nil")
-	}
+	require.Error(t, err)
 }
