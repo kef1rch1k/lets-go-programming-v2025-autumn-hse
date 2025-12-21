@@ -10,6 +10,7 @@ import (
 	mwifi "github.com/mdlayher/wifi"
 
 	"github.com/kef1rch1k/task-6/internal/wifi"
+	wifiMocks "github.com/kef1rch1k/task-6/internal/wifi/mocks"
 )
 
 var errIntf = errors.New("interfaces error")
@@ -17,7 +18,7 @@ var errIntf = errors.New("interfaces error")
 func TestGetAddresses(t *testing.T) {
 	t.Parallel()
 
-	mockWiFi := NewWiFiHandle(t)
+	mockWiFi := wifiMocks.NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").Return([]*mwifi.Interface{
 		{
@@ -36,7 +37,7 @@ func TestGetAddresses(t *testing.T) {
 func TestGetAddresses_Error(t *testing.T) {
 	t.Parallel()
 
-	mockWiFi := NewWiFiHandle(t)
+	mockWiFi := wifiMocks.NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").
 		Return(nil, errIntf)
@@ -50,7 +51,7 @@ func TestGetAddresses_Error(t *testing.T) {
 func TestGetNames(t *testing.T) {
 	t.Parallel()
 
-	mockWiFi := NewWiFiHandle(t)
+	mockWiFi := wifiMocks.NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").Return([]*mwifi.Interface{
 		{Name: "wlan0"},
@@ -67,7 +68,7 @@ func TestGetNames(t *testing.T) {
 func TestGetNames_Error(t *testing.T) {
 	t.Parallel()
 
-	mockWiFi := NewWiFiHandle(t)
+	mockWiFi := wifiMocks.NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").
 		Return(nil, errIntf)

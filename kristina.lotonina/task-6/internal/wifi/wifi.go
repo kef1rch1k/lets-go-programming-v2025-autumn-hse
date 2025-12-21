@@ -7,6 +7,8 @@ import (
 	"github.com/mdlayher/wifi"
 )
 
+//go:generate mockery --name=WiFiHandle --output=./mocks --outpkg=mocks
+
 type WiFiHandle interface {
 	Interfaces() ([]*wifi.Interface, error)
 }
