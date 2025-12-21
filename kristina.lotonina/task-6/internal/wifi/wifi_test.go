@@ -9,6 +9,10 @@ import (
 	mwifi "github.com/mdlayher/wifi"
 )
 
+var (
+	errIntf = errors.New("interfaces error")
+)
+
 func TestGetAddresses(t *testing.T) {
 	mockWiFi := NewWiFiHandle(t)
 
@@ -35,7 +39,7 @@ func TestGetAddresses_Error(t *testing.T) {
 	mockWiFi := NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").
-		Return(nil, errors.New("interfaces error"))
+		Return(nil, errIntf)
 
 	service := wifi.New(mockWiFi)
 
@@ -69,7 +73,7 @@ func TestGetNames_Error(t *testing.T) {
 	mockWiFi := NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").
-		Return(nil, errors.New("interfaces error"))
+		Return(nil, errIntf)
 
 	service := wifi.New(mockWiFi)
 
