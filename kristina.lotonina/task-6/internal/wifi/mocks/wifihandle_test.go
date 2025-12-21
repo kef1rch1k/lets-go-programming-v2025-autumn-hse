@@ -24,7 +24,6 @@ func TestWiFiHandle_Interfaces_PanicWhenNoReturn(t *testing.T) {
 	})
 }
 
-
 func TestWiFiHandle_Interfaces_FuncBoth(t *testing.T) {
 	t.Parallel()
 
