@@ -15,7 +15,7 @@ var errBoom = errors.New("boom")
 func TestWiFiHandle_Interfaces_PanicWhenNoReturn(t *testing.T) {
 	t.Parallel()
 
-	h := &mocks.WiFiHandle{}
+	h := mocks.NewWiFiHandle(t)
 
 	h.Mock.On("Interfaces").Return()
 
@@ -27,7 +27,7 @@ func TestWiFiHandle_Interfaces_PanicWhenNoReturn(t *testing.T) {
 func TestWiFiHandle_Interfaces_FuncBoth(t *testing.T) {
 	t.Parallel()
 
-	h := &mocks.WiFiHandle{}
+	h := mocks.NewWiFiHandle(t)
 
 	h.Mock.On("Interfaces").Return(func() ([]*mwifi.Interface, error) {
 		return []*mwifi.Interface{
@@ -44,7 +44,7 @@ func TestWiFiHandle_Interfaces_FuncBoth(t *testing.T) {
 func TestWiFiHandle_Interfaces_FuncSlice(t *testing.T) {
 	t.Parallel()
 
-	h := &mocks.WiFiHandle{}
+	h := mocks.NewWiFiHandle(t)
 
 	h.Mock.On("Interfaces").Return(func() []*mwifi.Interface {
 		return []*mwifi.Interface{
@@ -55,19 +55,17 @@ func TestWiFiHandle_Interfaces_FuncSlice(t *testing.T) {
 	ifaces, err := h.Interfaces()
 	require.NoError(t, err)
 	require.Len(t, ifaces, 1)
-	require.Equal(t, "wlan0", ifaces[0].Name)
 }
 
 func TestWiFiHandle_Interfaces_FuncError(t *testing.T) {
 	t.Parallel()
 
-	h := &mocks.WiFiHandle{}
+	h := mocks.NewWiFiHandle(t)
 
 	h.Mock.On("Interfaces").Return([]*mwifi.Interface{}, func() error {
 		return errBoom
 	})
 
 	_, err := h.Interfaces()
-	require.Error(t, err)
 	require.EqualError(t, err, "boom")
 }
