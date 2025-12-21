@@ -7,24 +7,40 @@ import (
 	"net"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
-	mwifi "github.com/mdlayher/wifi"
-
 	"github.com/kef1rch1k/task-6/internal/wifi"
+	mwifi "github.com/mdlayher/wifi"
+	"github.com/stretchr/testify/require"
 )
 
 var errIntf = errors.New("interfaces error")
+
+const (
+	name1 = "Biba"
+	name2 = "Boba"
+
+	BroadcastMAC = "ff:ff:ff:ff:ff:ff"
+	ZeroMAC      = "00:00:00:00:00:00"
+)
 
 func TestGetAddresses(t *testing.T) {
 	t.Parallel()
 
 	mockWiFi := NewWiFiHandle(t)
 
+	macBroadcast, err := net.ParseMAC(BroadcastMAC)
+	require.NoError(t, err)
+
+	macZero, err := net.ParseMAC(ZeroMAC)
+	require.NoError(t, err)
+
 	mockWiFi.On("Interfaces").Return([]*mwifi.Interface{
 		{
-			Name:         "wlan0",
-			HardwareAddr: net.HardwareAddr{0x00, 0x11},
+			Name:         name1,
+			HardwareAddr: macBroadcast,
+		},
+		{
+			Name:         name2,
+			HardwareAddr: macZero,
 		},
 	}, nil)
 
@@ -32,7 +48,10 @@ func TestGetAddresses(t *testing.T) {
 
 	addrs, err := service.GetAddresses()
 	require.NoError(t, err)
-	require.Len(t, addrs, 1)
+
+	require.Len(t, addrs, 2)
+	require.Equal(t, macBroadcast, addrs[0])
+	require.Equal(t, macZero, addrs[1])
 }
 
 func TestGetAddresses_Error(t *testing.T) {
@@ -55,8 +74,8 @@ func TestGetNames(t *testing.T) {
 	mockWiFi := NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").Return([]*mwifi.Interface{
-		{Name: "wlan0"},
-		{Name: "eth0"},
+		{Name: name1},
+		{Name: name2},
 	}, nil)
 
 	service := wifi.New(mockWiFi)

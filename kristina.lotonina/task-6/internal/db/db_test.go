@@ -15,6 +15,11 @@ var (
 	errRows  = errors.New("rows error")
 )
 
+const (
+	name1 = "Biba"
+	name2 = "Boba"
+)
+
 func TestGetNames(t *testing.T) {
 	t.Parallel()
 
@@ -25,8 +30,8 @@ func TestGetNames(t *testing.T) {
 	service := db.New(mockDB)
 
 	rows := sqlmock.NewRows([]string{"name"}).
-		AddRow("Ivan").
-		AddRow("Petr")
+		AddRow(name1).
+		AddRow(name2)
 
 	mock.ExpectQuery("SELECT name FROM users").
 		WillReturnRows(rows)
@@ -63,8 +68,8 @@ func TestGetUniqueNames(t *testing.T) {
 	service := db.New(mockDB)
 
 	rows := sqlmock.NewRows([]string{"name"}).
-		AddRow("Ivan").
-		AddRow("Petr")
+		AddRow(name1).
+		AddRow(name2)
 
 	mock.ExpectQuery("SELECT DISTINCT name FROM users").
 		WillReturnRows(rows)
@@ -120,7 +125,7 @@ func TestGetNames_RowsError(t *testing.T) {
 	service := db.New(mockDB)
 
 	rows := sqlmock.NewRows([]string{"name"}).
-		AddRow("Ivan").
+		AddRow(name1).
 		RowError(0, errRows)
 
 	mock.ExpectQuery("SELECT name FROM users").
