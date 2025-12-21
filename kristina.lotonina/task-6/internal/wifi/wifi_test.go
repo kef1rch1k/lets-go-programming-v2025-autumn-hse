@@ -13,6 +13,8 @@ import (
 	wifiMocks "github.com/kef1rch1k/task-6/internal/wifi/mocks"
 )
 
+//go:generate mockery --name=WiFiHandle --output=./mocks --outpkg=mocks
+
 var errIntf = errors.New("interfaces error")
 
 func TestGetAddresses(t *testing.T) {
