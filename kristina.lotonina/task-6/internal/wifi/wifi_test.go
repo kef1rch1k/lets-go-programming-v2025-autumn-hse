@@ -14,6 +14,8 @@ var (
 )
 
 func TestGetAddresses(t *testing.T) {
+	t.Parallel()
+
 	mockWiFi := NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").Return([]*mwifi.Interface{
@@ -36,6 +38,8 @@ func TestGetAddresses(t *testing.T) {
 }
 
 func TestGetAddresses_Error(t *testing.T) {
+	t.Parallel()
+
 	mockWiFi := NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").
@@ -50,6 +54,8 @@ func TestGetAddresses_Error(t *testing.T) {
 }
 
 func TestGetNames(t *testing.T) {
+	t.Parallel()
+
 	mockWiFi := NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").Return([]*mwifi.Interface{
@@ -70,6 +76,8 @@ func TestGetNames(t *testing.T) {
 }
 
 func TestGetNames_Error(t *testing.T) {
+	t.Parallel()
+
 	mockWiFi := NewWiFiHandle(t)
 
 	mockWiFi.On("Interfaces").
