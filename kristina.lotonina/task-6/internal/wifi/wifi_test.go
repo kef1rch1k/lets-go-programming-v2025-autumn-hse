@@ -9,9 +9,7 @@ import (
 	mwifi "github.com/mdlayher/wifi"
 )
 
-var (
-	errIntf = errors.New("interfaces error")
-)
+var errIntf = errors.New("interfaces error")
 
 func TestGetAddresses(t *testing.T) {
 	t.Parallel()
