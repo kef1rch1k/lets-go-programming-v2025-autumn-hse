@@ -7,12 +7,12 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	mwifi "github.com/mdlayher/wifi"
+	"github.com/mdlayher/wifi"
 
-	"github.com/kef1rch1k/task-6/internal/wifi"
+	mwifi "github.com/kef1rch1k/task-6/internal/wifi"
 )
 
-//go:generate mockery --name=WiFiHandle --output=./mocks --outpkg=mocks
+//go:generate mockery --name=WiFiHandle --testonly --quiet --outpkg wifi_test --output .
 
 var errIntf = errors.New("interfaces error")
 
